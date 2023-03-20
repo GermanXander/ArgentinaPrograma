@@ -1,42 +1,38 @@
-import micropython
-from machine import Timer
-timer_init = lambda t, p, cb: t.init(period=p, callback=cb)
-
-class DebouncedSwitch:
-    def __init__(self, sw, cb, arg=None, delay=50, tid=4):
-        self.sw = sw
-        self._sw_cb = self.sw_cb
-        self._tim_cb = self.tim_cb
-        self._set_cb = getattr(self.sw, 'callback', None) or self.sw.irq
-        self.delay = delay
-        self.tim = Timer(tid)
-        self.callback(cb, arg)
-
-    def sw_cb(self, pin=None):
-        self._set_cb(None)
-        timer_init(self.tim, self.delay, self._tim_cb)
-
-    def tim_cb(self, tim):
-        tim.deinit()
-        if self.sw():
-            micropython.schedule(self.cb, self.arg)
-        self._set_cb(self._sw_cb if self.cb else None)
-
-    def callback(self, cb, arg=None):
-        self.tim.deinit()
-        self.cb = cb
-        self.arg = arg
-        self._set_cb(self._sw_cb if cb else None)
-
-
 from machine import Pin
+import dht
+import time
+import json
+from collections import OrderedDict
+
 sw = Pin(23, Pin.IN)
 led = Pin(2, Pin.OUT)
-total=0
-def sumador(algo):
-    global total
-    total+=1
-    print(total)
-    print(algo)
+d = dht.DHT22(Pin(25))
+print("esperand pulsador")
+contador=0
 
-contador=DebouncedSwitch(sw, sumador)
+while True:
+    if sw.value():
+        contador+=1
+        print(contador)
+        if led.value():
+            led.off()
+        else:
+            led.on()
+    try:
+        d.measure()
+        try:
+            temperatura=d.temperature()
+            try:
+                humedad=d.humidity()
+                datos=json.dumps(OrderedDict([
+                    ('temperatura',temperatura),
+                    ('humedad',humedad)
+                ]))
+                print(datos)
+            except OSError as e:
+                print("sin sensor temperatura")
+        except OSError as e:
+            print("sin sensor humedad")
+    except OSError as e:
+        print("sin sensor")
+    time.sleep_ms(150)
