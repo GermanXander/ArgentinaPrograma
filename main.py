@@ -1,9 +1,8 @@
-from machine import Pin, disable_irq, enable_irq, Timer
+from machine import Pin, Timer
 import dht
 import time
 import json
 from collections import OrderedDict
-import micropython
 
 sw = Pin(23, Pin.IN)
 led = Pin(2, Pin.OUT)
