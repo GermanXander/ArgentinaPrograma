@@ -3,10 +3,15 @@ import dht
 import time
 import json
 from collections import OrderedDict
+import urequests
 
 sw = Pin(23, Pin.IN)
 led = Pin(2, Pin.OUT)
 d = dht.DHT22(Pin(25))
+
+token ='cambiarcambiarcambiarcambiarcambiar'
+chatid=cambiar
+
 print("esperand pulsador")
 contador=0
 estado=False
@@ -18,9 +23,16 @@ def alternar(pin):
             contador+=1
             print(contador)
             led.value(not led.value())
-        estado = True
-    else:
-        estado = False
+            try:
+                data = {'chat_id': chatid, 'text': datos}
+                response = urequests.post("https://api.telegram.org/bot" + token + '/sendMessage', json=data)
+                response.close()
+                print("envio correcto a telegram")
+            except:
+                print("fallo en el envio a telegram")
+            estado = True
+        else:
+            estado = False
 
 timer1 = Timer(1)
 timer1.init(period=50, mode=Timer.PERIODIC, callback=alternar)
