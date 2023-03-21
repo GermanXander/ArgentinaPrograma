@@ -4,13 +4,11 @@ import time
 import json
 from collections import OrderedDict
 import urequests
+from settings import TOKEN, CHATID
 
 sw = Pin(23, Pin.IN)
 led = Pin(2, Pin.OUT)
 d = dht.DHT22(Pin(25))
-
-token ='cambiarcambiarcambiarcambiarcambiar'
-chatid=cambiar
 
 print("esperand pulsador")
 contador=0
@@ -24,8 +22,8 @@ def alternar(pin):
             print(contador)
             led.value(not led.value())
             try:
-                data = {'chat_id': chatid, 'text': datos}
-                response = urequests.post("https://api.telegram.org/bot" + token + '/sendMessage', json=data)
+                data = {'chat_id': CHATID, 'text': datos}
+                response = urequests.post("https://api.telegram.org/bot" + TOKEN + '/sendMessage', json=data)
                 response.close()
                 print("envio correcto a telegram")
             except:
