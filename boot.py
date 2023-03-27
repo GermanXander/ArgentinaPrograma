@@ -6,7 +6,6 @@ def do_connect():
     wlan.active(True)
     if not wlan.isconnected():
         print('connecting to network...')
-        # wlan.connect('Wi-Fio LabEtronica', 'wds2008fio')
         wlan.connect(SSID, PASS_WLAN)
         while not wlan.isconnected():
             pass
