@@ -14,10 +14,8 @@ while True:
     if sw.value():
         contador+=1
         print(contador)
-        if led.value():
-            led.off()
-        else:
-            led.on()
+        led.value(not led.value())
+
     try:
         d.measure()
         try:
@@ -35,4 +33,5 @@ while True:
             print("sin sensor humedad")
     except OSError as e:
         print("sin sensor")
-    time.sleep_ms(150)
+
+    time.sleep_ms(250)
