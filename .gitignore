@@ -38,7 +38,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+#lib/
 lib64/
 parts/
 sdist/
@@ -189,7 +189,7 @@ cython_debug/
 .Python
 [Bb]in
 [Ii]nclude
-[Ll]ib
+#[Ll]ib
 [Ll]ib64
 [Ll]ocal
 [Ss]cripts

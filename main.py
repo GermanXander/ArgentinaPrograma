@@ -8,7 +8,7 @@ import urequests
 from settings import TOKEN, CHATID, SERVIDOR_MQTT
 from umqtt.robust import MQTTClient
 
-CLIENT_ID = ubinascii.hexlify(unique_id())
+CLIENT_ID = ubinascii.hexlify(unique_id()).decode('utf-8')
 
 mqtt = MQTTClient(CLIENT_ID, SERVIDOR_MQTT,
                   port=8883, keepalive=10, ssl=True)
@@ -42,7 +42,7 @@ def alternar(pin):
 
 def transmitir(pin):
     mqtt.connect()
-    mqtt.publish('datos',datos)
+    mqtt.publish(f"ap/{CLIENT_ID}",datos)
     mqtt.disconnect()
 
 timer1 = Timer(1)
