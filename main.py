@@ -1,3 +1,5 @@
+# Ing. Germán Andrés Xander 2023
+
 from machine import Pin
 import time
 
