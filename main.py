@@ -17,29 +17,23 @@ print("esperand pulsador")
 contador=0
 estado=False
 
-def alternar(pin):
-    global contador, estado
-    if sw.value():
-        if not estado:
-            contador+=1
-            print(contador)
-            led.value(not led.value())
-            try:
-                data = {'chat_id': CHATID, 'text': datos}
-                response = urequests.post("https://api.telegram.org/bot" + TOKEN + '/sendMessage', json=data)
-                response.close()
-                print("envio correcto a telegram")
-            except:
-                print("fallo en el envio a telegram")
-            estado = True
-        else:
-            estado = False
+def alternar(nada):
+    global contador
+    contador+=1
+    print(contador)
+    led.value(not led.value())
+    try:
+        data = {'chat_id': CHATID, 'text': datos}
+        response = urequests.post("https://api.telegram.org/bot" + TOKEN + '/sendMessage', json=data)
+        response.close()
+        print("envio correcto a telegram")
+    except:
+        print("fallo en el envio a telegram")
 
 sw = Pin(23, Pin.IN)
 led = Pin(2, Pin.OUT)
-total=0
 
-contador=DebouncedSwitch(sw, alternar)
+objeto=DebouncedSwitch(sw, alternar)
 
 while True:
     try:
