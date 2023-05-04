@@ -1,10 +1,13 @@
-from machine import Pin, Timer
+# Germán Andrés Xander 2023
+
+from machine import Pin
 import dht
 import time
 import json
 from collections import OrderedDict
 import urequests
 from settings import TOKEN, CHATID
+from debounce import DebouncedSwitch
 
 sw = Pin(23, Pin.IN)
 led = Pin(2, Pin.OUT)
@@ -32,8 +35,11 @@ def alternar(pin):
         else:
             estado = False
 
-timer1 = Timer(1)
-timer1.init(period=50, mode=Timer.PERIODIC, callback=alternar)
+sw = Pin(23, Pin.IN)
+led = Pin(2, Pin.OUT)
+total=0
+
+contador=DebouncedSwitch(sw, alternar)
 
 while True:
     try:
