@@ -3,6 +3,8 @@
 from machine import Pin
 import time
 
+print("esperando pulsador")
+
 sw = Pin(23, Pin.IN)
 led = Pin(2, Pin.OUT)
 
