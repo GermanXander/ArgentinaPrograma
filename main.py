@@ -1,17 +1,23 @@
 # Germán Andrés Xander 2023
  
-from machine import Pin
-import time
+from machine import Pin, Timer
 
-print("esperando pulsador")
-
-sw = Pin(23, Pin.IN)
 led = Pin(2, Pin.OUT)
-
 contador=0
-while True:
-    if sw.value():
-        led.value(not led.value())
-        contador += 1
-        print(contador)
-        time.sleep_ms(5)
+
+def latir(nada):
+  global contador
+  print(contador)
+  if contador > 3:
+    pulsos.deinit()
+    contador=0
+    return
+  led.value(not led.value())
+  contador +=1
+
+def heartbeat(nada):
+  pulsos.init(period=150, mode=Timer.PERIODIC, callback=latir)
+
+periodo = Timer(0)
+periodo.init(period=1000, mode=Timer.PERIODIC, callback=heartbeat)
+pulsos = Timer(1)
