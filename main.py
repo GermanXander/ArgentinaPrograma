@@ -19,26 +19,21 @@ d = dht.DHT22(Pin(25))
 
 print("esperand pulsador")
 contador=0
-estado=False
-datos={}
 
-def alternar(pin):
-    global contador, estado
-    if sw.value():
-        if not estado:
-            contador+=1
-            print(contador)
-            led.value(not led.value())
-            try:
-                data = {'chat_id': CHATID, 'text': datos}
-                response = urequests.post("https://api.telegram.org/bot" + TOKEN + '/sendMessage', json=data)
-                response.close()
-                print("envio correcto a telegram")
-            except:
-                print("fallo en el envio a telegram")
-            estado = True
-        else:
-            estado = False
+def alternar(nada):
+    global contador
+    contador+=1
+    print(contador)
+    led.value(not led.value())
+    try:
+        data = {'chat_id': CHATID, 'text': datos}
+        response = urequests.post("https://api.telegram.org/bot" + TOKEN + '/sendMessage', json=data)
+        response.close()
+        print("envio correcto a telegram")
+    except:
+        print("fallo en el envio a telegram")
+
+objeto=DebouncedSwitch(sw, alternar)
 
 def transmitir(pin):
     mqtt.connect()
@@ -46,12 +41,9 @@ def transmitir(pin):
     mqtt.disconnect()
 
 timer1 = Timer(1)
-timer1.init(period=50, mode=Timer.PERIODIC, callback=alternar)
-timer2 = Timer(2)
-timer2.init(period=30000, mode=Timer.PERIODIC, callback=transmitir)
+timer1.init(period=30000, mode=Timer.PERIODIC, callback=transmitir)
 
 while True:
-    inicio=time.time_ns()
     try:
         d.measure()
         try:
@@ -70,4 +62,3 @@ while True:
     except OSError as e:
         print("sin sensor")
     time.sleep(5)
-    print('duracion: ',(time.time_ns()-inicio)/1000000, ' ms')
