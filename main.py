@@ -15,7 +15,6 @@ d = dht.DHT22(Pin(25))
 
 print("esperand pulsador")
 contador=0
-estado=False
 
 def alternar(nada):
     global contador
