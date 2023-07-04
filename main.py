@@ -1,3 +1,5 @@
+# Germán Andrés Xander 2023
+
 from machine import Pin, Timer, unique_id
 import dht
 import time
