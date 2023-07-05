@@ -11,4 +11,4 @@ led = Pin(2, Pin.OUT)
 while True:
     if sw.value():
         led.value(not led.value())
-        time.sleep_ms(5)
+    time.sleep_ms(5)
