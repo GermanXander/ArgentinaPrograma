@@ -21,5 +21,5 @@ def heartbeat(nada):
   pulsos.init(period=150, mode=Timer.PERIODIC, callback=latir)
 
 periodo = Timer(0)
-periodo.init(period=1000, mode=Timer.PERIODIC, callback=heartbeat)
-pulsos = Timer(3)
+periodo.init(period=3000, mode=Timer.PERIODIC, callback=heartbeat)
+pulsos = Timer(1)
