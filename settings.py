@@ -1,0 +1,9 @@
+# SSID="tucan 2.4GHz"
+# PASS_WLAN="s0l0mi02s0l0mi0"
+# SSID="SalaTI"
+# PASS_WLAN="edupublica"
+SSID="No es Ulan Bator"
+PASS_WLAN="noesedupublica!"
+TOKEN="6057725253:AAGtW4Dn2Fd1UmyMZaBBTv119uFBthDiSTE"
+CHATID=75804979
+SERVIDOR_MQTT="iotunam.duckdns.org"

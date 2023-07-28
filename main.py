@@ -6,6 +6,6 @@ import dht
 d = dht.DHT22(Pin(25))
 d.measure()
 temperatura=d.temperature()
-print(f"la temperatura actual es de {temperatura} °C")
+print(f"la temperatura actual es de {temperatura} *C")
 humedad=d.humidity()
 print(f"la humedad actual es de {humedad} %")
