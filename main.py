@@ -1,6 +1,8 @@
 # Germán Andrés Xander 2023
  
 from machine import Pin, Timer
+import time
+time.sleep(2)
 
 led = Pin(2, Pin.OUT)
 contador=0
@@ -20,4 +22,4 @@ def heartbeat(nada):
 
 periodo = Timer(0)
 periodo.init(period=1000, mode=Timer.PERIODIC, callback=heartbeat)
-pulsos = Timer(1)
+pulsos = Timer(3)
