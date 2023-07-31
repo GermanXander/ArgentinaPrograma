@@ -37,19 +37,13 @@ objeto=DebouncedSwitch(sw, alternar)
 while True:
     try:
         d.measure()
-        try:
-            temperatura=d.temperature()
-            try:
-                humedad=d.humidity()
-                datos=json.dumps(OrderedDict([
-                    ('temperatura',temperatura),
-                    ('humedad',humedad)
-                ]))
-                print(datos)
-            except OSError as e:
-                print("sin sensor temperatura")
-        except OSError as e:
-            print("sin sensor humedad")
+        temperatura=d.temperature()
+        humedad=d.humidity()
+        datos=json.dumps(OrderedDict([
+            ('temperatura',temperatura),
+            ('humedad',humedad)
+        ]))
+        print(datos)
     except OSError as e:
         print("sin sensor")
     time.sleep(5)
