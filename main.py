@@ -10,16 +10,16 @@ sw = Pin(23, Pin.IN)
 led = Pin(2, Pin.OUT)
 d = dht.DHT22(Pin(25))
 print("esperand pulsador")
-contador=0
-estado=False
-temperatura=0
-humedad=0
+contador = 0
+estado = False
+temperatura = 0
+humedad = 0
 
 def alternar(pin):
     global contador, estado, temperatura, humedad
     if sw.value():
         if not estado:
-            contador+=1
+            contador += 1
             print(contador)
             try:
                 d.measure()
@@ -29,8 +29,7 @@ def alternar(pin):
                 elif contador == 2:
                     temperatura = (temperatura + d.temperature())/2
                     humedad = (humedad + d.humidity())/2
-
-                    datos=json.dumps(OrderedDict([
+                    datos = json.dumps(OrderedDict([
                         ('temperatura',temperatura),
                         ('humedad',humedad)
                     ]))
