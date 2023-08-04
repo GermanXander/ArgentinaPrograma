@@ -26,6 +26,7 @@ def alternar(pin):
             try:
                 data = {'chat_id': CHATID, 'text': datos}
                 response = urequests.post("https://api.telegram.org/bot" + TOKEN + '/sendMessage', json=data)
+                # print(response.text)
                 response.close()
                 print("envio correcto a telegram")
             except:
