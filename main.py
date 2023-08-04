@@ -15,7 +15,7 @@ temperatura = 0
 humedad = -1
 
 def alternar(pin):
-    global contador, estado, temperatura, humedad
+    global contador, estado, temperatura, humedad 
     if sw.value():
         if not estado:
             try:
