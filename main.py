@@ -16,27 +16,9 @@ mqtt = MQTTClient(CLIENT_ID, SERVIDOR_MQTT,
 
 led = Pin(2, Pin.OUT)
 d = dht.DHT22(Pin(25))
-contador = 0
-
-def heartbeat(nada):
-    global contador
-    if contador > 5:
-        pulsos.deinit()
-        contador = 0
-        return
-    led.value(not led.value())
-    contador += 1
-  
-def transmitir(pin):
-    print("publicando")
-    mqtt.connect()
-    mqtt.publish(f"ap/{CLIENT_ID}",datos)
-    mqtt.disconnect()
-    pulsos.init(period=150, mode=Timer.PERIODIC, callback=heartbeat)
-
-publicar = Timer(0)
-publicar.init(period=30000, mode=Timer.PERIODIC, callback=transmitir)
-pulsos = Timer(1)
+Tmin = 20
+Tmax = 30
+bandera = True
 
 while True:
     try:
@@ -48,6 +30,15 @@ while True:
             ('humedad',humedad)
         ]))
         print(datos)
+        if temperatura > Tmax and bandera == True:
+            print("publicando")
+            mqtt.connect()
+            mqtt.publish(f"aptest/{CLIENT_ID}",datos)
+            mqtt.disconnect()
+            bandera = False
+        if temperatura < Tmin:
+            bandera = True
+
     except OSError as e:
         print("sin sensor")
     time.sleep(5)
