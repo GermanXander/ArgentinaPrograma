@@ -27,10 +27,10 @@ def sub_cb(topic, msg):
 
 mqtt.set_callback(sub_cb)
 mqtt.connect()
-mqtt.subscribe(f"ap/{CLIENT_ID}/comando")
+mqtt.subscribe(f"iot/{CLIENT_ID}/comando")
 
 def transmitir(pin):
-    mqtt.publish(f"ap/{CLIENT_ID}",datos)
+    mqtt.publish(f"iot/{CLIENT_ID}",datos)
 
 timer1 = Timer(1)
 timer1.init(period=20000, mode=Timer.PERIODIC, callback=transmitir)
