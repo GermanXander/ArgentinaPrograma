@@ -30,7 +30,7 @@ def heartbeat(nada):
 def transmitir(pin):
     print("publicando")
     mqtt.connect()
-    mqtt.publish(f"ap/{CLIENT_ID}",datos)
+    mqtt.publish(f"iot/{CLIENT_ID}",datos)
     mqtt.disconnect()
     pulsos.init(period=150, mode=Timer.PERIODIC, callback=heartbeat)
 
